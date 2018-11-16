@@ -30,31 +30,30 @@ public class RegisterActivity extends AppCompatActivity {
 
         etUserName = findViewById(R.id.etUserName);
         etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
         btRegister = findViewById(R.id.btLogIn);
         tvGoLogin = findViewById(R.id.tvGoLogin);
 
 
 
         //database
-        mMyHelper = new MyHelper(RegisterActivity.this, "STUDDB",null,1);
+        mMyHelper = new MyHelper(RegisterActivity.this, "CUSTDB",null,1);
         mSQLiteDb = mMyHelper.getWritableDatabase();
 
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ContentValues cv = new ContentValues();
-                cv.put("user",etUserName.getText().toString());
                 cv.put("email", etEmail.getText().toString());
+                cv.put("user",etUserName.getText().toString());
                 cv.put("password", etPassword.getText().toString());
 
-                long id = mSQLiteDb.insert("employers",null,cv);
-                Log.i("showerrors","added id "+id);
+                long id = mSQLiteDb.insert("customers",null,cv);
+//                Log.i("showerrors","added id "+id);
                 Toast.makeText(RegisterActivity.this,"User Added succesfully",Toast.LENGTH_SHORT).show();
 
-                Intent goRegIntent = new Intent(RegisterActivity.this, ProfileActivity.class);
-                goRegIntent.putExtra("email",etEmail.getText().toString());
-                startActivity(goRegIntent);
+                Intent goRegLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(goRegLogin);
 
             }
         });

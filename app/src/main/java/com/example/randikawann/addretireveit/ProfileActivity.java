@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,9 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
         imgPassword = findViewById(R.id.imgPassword);
         imgOther = findViewById(R.id.imgOther);
 
-        //database
-        mMyHelper = new MyHelper(ProfileActivity.this, "STUDDB",null,1);
-        mSQLiteDb = mMyHelper.getWritableDatabase();
 
         //Toolbar
         mToolbar = findViewById(R.id.toolbar);
@@ -90,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        intentEmail = getIntent().getExtras().getString("email");
+
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,10 +98,12 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
+
+
         try {
             updateDetails();
         }catch(Exception e){
-            Toast.makeText(ProfileActivity.this , "database error from profile activity" , Toast.LENGTH_SHORT).show();
+//            Log.i("showerrors","error with database profile activity"+e.toString());
         }
 
 
@@ -111,21 +111,30 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void updateDetails() {
-        @SuppressLint("Recycle") Cursor c = mSQLiteDb.query("employer", null, null, null, null, null,null);
+
+        //database
+        mMyHelper = new MyHelper(ProfileActivity.this, "CUSTDB",null,1);
+        mSQLiteDb = mMyHelper.getWritableDatabase();
+        mSQLiteDb = mMyHelper.getReadableDatabase();
+
+        Cursor c = mSQLiteDb.query("customers", null, null, null, null, null,null);
         while (c.moveToNext()) {
+
             String email = c.getString(c.getColumnIndex("email"));
+            intentEmail = getIntent().getExtras().getString("email");
+//            Log.i("showerrors","database email: "+email);
+//            Log.i("showerrors","intent email: "+intentEmail);
 
             if(intentEmail.equals(email)){
+//                Log.i("showerrors","both are equal");
 
                 String user = c.getString(c.getColumnIndex("user"));
                 String email1 = c.getString(c.getColumnIndex("email"));
-                String password = c.getString(c.getColumnIndex("password"));
 
-                Toast.makeText(ProfileActivity.this , c.getString(c.getColumnIndex("name")) , Toast.LENGTH_SHORT).show();
+//                Log.i("showerrors","user name :"+user);
 
                 etUserName.setText(user);
                 etEmail.setText(email1);
-                etpassword.setText(password);
 
 
             }

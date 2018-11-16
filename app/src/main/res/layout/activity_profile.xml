@@ -14,7 +14,7 @@
         android:id="@+id/L0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
@@ -123,7 +123,7 @@
             android:id="@+id/etOther"
             android:layout_width="302dp"
             android:layout_height="50dp"
-            android:hint="Change Password"
+            android:hint="Write your status"
             android:inputType=""
             android:paddingLeft="20dp" />
 
