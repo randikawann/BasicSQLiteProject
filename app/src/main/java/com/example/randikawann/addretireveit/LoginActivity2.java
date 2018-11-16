@@ -1,5 +1,6 @@
 package com.example.randikawann.addretireveit;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,17 +49,21 @@ public class LoginActivity2 extends AppCompatActivity {
                 if(password.equals("")){
                     Toast.makeText(LoginActivity2.this , "Please Password" , Toast.LENGTH_SHORT).show();
                 }
-                //get data from database
-                Cursor c = mSQLiteDb.query("users1", null, null, null, null, null,null);
-                while (c.moveToNext()) {
-                    String DBEmail = c.getString(c.getColumnIndex("email"));
-                    String DBPassword = c.getString(c.getColumnIndex("DBPassword"));
-                    if(email.equals(DBPassword) && password.equals(DBPassword)){
-                        Intent goProfileIntent = new Intent(LoginActivity2.this, ProfileActivity.class);
-                        goProfileIntent.putExtra("email",DBEmail);
-                        startActivity(goProfileIntent);
+                try {
+                    //get data from database
+                    @SuppressLint("Recycle") Cursor c = mSQLiteDb.query("employer" , null , null , null , null , null , null);
+                    while (c.moveToNext()) {
+                        String DBEmail = c.getString(c.getColumnIndex("email"));
+                        String DBPassword = c.getString(c.getColumnIndex("DBPassword"));
+                        if (email.equals(DBPassword) && password.equals(DBPassword)) {
+                            Intent goProfileIntent = new Intent(LoginActivity2.this , ProfileActivity.class);
+                            goProfileIntent.putExtra("email" , DBEmail);
+                            startActivity(goProfileIntent);
 
+                        }
                     }
+                }catch(Exception e){
+                    Toast.makeText(LoginActivity2.this , "database error with loginactivity 2" , Toast.LENGTH_SHORT).show();
                 }
 
             }

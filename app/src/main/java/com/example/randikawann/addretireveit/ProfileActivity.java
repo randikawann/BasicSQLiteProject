@@ -1,9 +1,11 @@
 package com.example.randikawann.addretireveit;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -83,14 +85,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        updateDetails();
+
+        try {
+            updateDetails();
+        }catch(Exception e){
+            Toast.makeText(ProfileActivity.this , "database error from profile activity" , Toast.LENGTH_SHORT).show();
+        }
 
 
 
     }
 
     private void updateDetails() {
-        Cursor c = mSQLiteDb.query("employer", null, null, null, null, null,null);
+        @SuppressLint("Recycle") Cursor c = mSQLiteDb.query("employer", null, null, null, null, null,null);
         while (c.moveToNext()) {
             String email = c.getString(c.getColumnIndex("email"));
 
