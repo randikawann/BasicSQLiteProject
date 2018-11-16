@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
                 cv.put("email", etEmail.getText().toString());
                 cv.put("password", etPassword.getText().toString());
 
-                long id = mSQLiteDb.insert("employer",null,cv);
+                long id = mSQLiteDb.insert("employers",null,cv);
+                Log.i("showerrors","added id "+id);
                 Toast.makeText(RegisterActivity.this,"User Added succesfully",Toast.LENGTH_SHORT).show();
 
                 Intent goRegIntent = new Intent(RegisterActivity.this, ProfileActivity.class);
@@ -59,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         tvGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goRegIntent = new Intent(RegisterActivity.this, LoginActivity2.class);
+                Intent goRegIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(goRegIntent);
             }
         });

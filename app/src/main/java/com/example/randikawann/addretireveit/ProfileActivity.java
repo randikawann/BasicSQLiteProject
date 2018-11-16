@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private Toolbar mToolbar;
     EditText etUserName;
     EditText etEmail;
     EditText etpassword;
@@ -56,6 +57,19 @@ public class ProfileActivity extends AppCompatActivity {
         //database
         mMyHelper = new MyHelper(ProfileActivity.this, "STUDDB",null,1);
         mSQLiteDb = mMyHelper.getWritableDatabase();
+
+        //Toolbar
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //set disable
+        etUserName.setEnabled(false);
+        etEmail.setEnabled(false);
+        etpassword.setEnabled(false);
+        etOther.setEnabled(false);
+
 
         imgEditName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,11 +127,6 @@ public class ProfileActivity extends AppCompatActivity {
                 etEmail.setText(email1);
                 etpassword.setText(password);
 
-                //set enableedit
-                etUserName.setEnabled(false);
-                etEmail.setEnabled(false);
-                etpassword.setEnabled(false);
-                etOther.setEnabled(false);
 
             }
 

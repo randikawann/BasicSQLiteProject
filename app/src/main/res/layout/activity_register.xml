@@ -15,7 +15,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/rounded_edit_texts"
-        android:hint="User Name"
+        android:hint="Full Name"
         android:inputType=""
         android:paddingLeft="20dp" />
 
@@ -64,7 +64,7 @@
         android:layout_below="@+id/btLogIn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="Already register .. click hear LogIn"
+        android:text="Already registred! Login Me."
         android:textSize="20dp" />
 
 
